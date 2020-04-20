@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -ex
+
+cd /build/src
+
+wget -O ffmpeg-snapshot.tar.bz2 https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+tar xjf ffmpeg-snapshot.tar.bz2
+
+cd ffmpeg
+
+PATH="/build/bin:$PATH" PKG_CONFIG_PATH="/build/tmp/lib/pkgconfig" ./configure \
+  --prefix="/build/tmp" \
+  --pkg-config-flags="--static" \
+  --extra-cflags="-I/build/tmp/include -static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
+  --extra-ldflags="-L/build/tmp/lib -static" \
+  --extra-libs="-lpthread -lm" \
+  --bindir="/build/bin" \
+  --enable-static \
+  --enable-gpl \
+  --enable-libass \
+  --enable-libfdk-aac \
+  --enable-libfreetype \
+  --enable-libmp3lame \
+  --enable-libopus \
+  --enable-libvorbis \
+  --enable-libvpx \
+  --enable-libx264 \
+  --enable-libx265 \
+  --enable-nonfree && \
+PATH="/build/bin:$PATH" make -j3 && \
+make install && \
+hash -r
