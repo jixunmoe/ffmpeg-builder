@@ -37,13 +37,6 @@ RUN mkdir -p src tmp bin lib
 
 WORKDIR /build/lib
 
-RUN wget https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz \
-  && tar xf libass-0.14.0.tar.xz \
-  && cd libass-0.14.0 \
-  && ./configure --prefix=/usr --enable-static \
-  && make -j4 all install \
-  && rm -rf /build/lib/libass-0.14.0 /build/lib/libass-0.14.0.tar.xz
-
 RUN wget https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-1.0.9.tar.xz \
   && tar xf fribidi-1.0.9.tar.xz \
   && cd fribidi-1.0.9 \
@@ -57,6 +50,13 @@ RUN wget https://github.com/silnrsi/graphite/releases/download/1.3.14/graphite2-
   && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr . \
   && make -j4 all install \
   && rm -rf /build/lib/graphite2-1.3.14 /build/lib/graphite2-1.3.14.tgz
+
+RUN wget https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz \
+  && tar xf libass-0.14.0.tar.xz \
+  && cd libass-0.14.0 \
+  && ./configure --prefix=/usr --enable-static \
+  && make -j4 all install \
+  && rm -rf /build/lib/libass-0.14.0 /build/lib/libass-0.14.0.tar.xz
 
 RUN wget https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.0.1.tar.gz \
   && tar xf fdk-aac-2.0.1.tar.gz \
