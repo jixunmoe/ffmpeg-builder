@@ -22,5 +22,5 @@ To build latest snapshot of ffmpeg:
 
 ```sh
 mkdir -p bin
-docker run -v "$(pwd)/bin:/build/bin" jixun:ffmpeg_builder
+docker run -v "$(pwd)/bin:/build/bin" jixun/ffmpeg-builder
 ```
