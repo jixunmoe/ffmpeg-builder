@@ -1,8 +1,10 @@
 # Ubuntu 18.04
 FROM ubuntu:bionic-20200311
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Update packages
-RUN apt update -qq && apt full-upgrade -y && apt -y install \
+RUN apt-get update -qq && apt-get -y install \
   autoconf \
   automake \
   build-essential \
@@ -28,6 +30,7 @@ RUN apt update -qq && apt full-upgrade -y && apt -y install \
   libvpx-dev \
   libmp3lame-dev \
   libopus-dev \
+  libfontconfig1-dev \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /build
