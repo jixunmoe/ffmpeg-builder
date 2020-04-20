@@ -9,7 +9,7 @@ Instructions taken from: https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 
 ```sh
 cd builder
-docker build . --tag jixun/ffmpeg-builder
+docker build . --tag jixun/ffmpeg-builder:latest
 ```
 
 ※ Should be available in [Docker Hub][hub], but is untagged.
