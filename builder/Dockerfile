@@ -11,14 +11,8 @@ RUN apt-get update -qq && apt-get -y install \
   cmake \
   git-core \
   libfreetype6-dev \
-  libsdl2-dev \
   libtool \
-  libva-dev \
-  libvdpau-dev \
   libvorbis-dev \
-  libxcb1-dev \
-  libxcb-shm0-dev \
-  libxcb-xfixes0-dev \
   pkg-config \
   texinfo \
   wget \

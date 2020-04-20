@@ -9,5 +9,5 @@ To build latest snapshot of ffmpeg:
 
 ```sh
 mkdir -p bin
-docker run -v "$(pwd)/bin:/build/bin" jixun/ffmpeg-builder
+docker run --rm -v "$(pwd)/bin:/build/bin" jixun/ffmpeg-builder
 ```
