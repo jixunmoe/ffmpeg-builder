@@ -41,21 +41,24 @@ RUN wget https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-1.0
   && tar xf fribidi-1.0.9.tar.xz \
   && cd fribidi-1.0.9 \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all install \
+  && make -j4 all \
+  && make install \
   && rm -rf /build/lib/fribidi-1.0.9 /build/lib/fribidi-1.0.9.tar.xz
 
 RUN wget https://github.com/silnrsi/graphite/releases/download/1.3.14/graphite2-1.3.14.tgz \
   && tar xf graphite2-1.3.14.tgz \
   && cd graphite2-1.3.14 \
   && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr . \
-  && make -j4 all install \
+  && make -j4 all \
+  && make install \
   && rm -rf /build/lib/graphite2-1.3.14 /build/lib/graphite2-1.3.14.tgz
 
 RUN wget https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz \
   && tar xf libass-0.14.0.tar.xz \
   && cd libass-0.14.0 \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all install \
+  && make -j4 all \
+  && make install \
   && rm -rf /build/lib/libass-0.14.0 /build/lib/libass-0.14.0.tar.xz
 
 RUN wget https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.0.1.tar.gz \
@@ -63,14 +66,16 @@ RUN wget https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.
   && cd fdk-aac-2.0.1 \
   && autoreconf -fiv \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all install \
+  && make -j4 all \
+  && make install \
   && rm -rf /build/lib/fdk-aac-2.0.1 /build/lib/fdk-aac-2.0.1.tar.gz
 
 RUN wget https://bitbucket.org/multicoreware/x265/downloads/x265_3.3.tar.gz \
   && tar xf x265_3.3.tar.gz \
   && cd x265_3.3/build/linux \
   && cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_SHARED=off ../../source \
-  && make -j4 all install \
+  && make -j4 all \
+  && make install \
   && rm -rf /build/lib/x265_3.3 /build/lib/x265_3.3.tar.gz
 
 VOLUME /build/bin
