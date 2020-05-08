@@ -21,7 +21,7 @@ RUN apt-get update -qq && apt-get -y install \
   libx264-dev \
   nasm \
   pkg-config \
-  python3 \
+  python3-minimal \
   texinfo \
   wget \
   yasm \
