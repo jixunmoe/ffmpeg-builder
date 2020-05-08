@@ -10,7 +10,7 @@ tar xjf ffmpeg-snapshot.tar.bz2
 cd ffmpeg
 
 ./configure \
-  --prefix="/build/tmp" \
+  --prefix="/usr" \
   --pkg-config-flags="--static" \
   --extra-cflags="-static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
   --extra-ldflags="-static" \
