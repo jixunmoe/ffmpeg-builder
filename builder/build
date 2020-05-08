@@ -9,15 +9,16 @@ tar xjf ffmpeg-snapshot.tar.bz2
 
 cd ffmpeg
 
-PATH="/build/bin:$PATH" PKG_CONFIG_PATH="/build/tmp/lib/pkgconfig" ./configure \
+./configure \
   --prefix="/build/tmp" \
   --pkg-config-flags="--static" \
-  --extra-cflags="-I/build/tmp/include -static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
-  --extra-ldflags="-L/build/tmp/lib -static" \
+  --extra-cflags="-static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
+  --extra-ldflags="-static" \
   --extra-libs="-lpthread -lm" \
   --bindir="/build/bin" \
   --enable-static \
   --enable-gpl \
+  --enable-gnutls \
   --enable-libass \
   --enable-libfdk-aac \
   --enable-libfreetype \
@@ -28,6 +29,6 @@ PATH="/build/bin:$PATH" PKG_CONFIG_PATH="/build/tmp/lib/pkgconfig" ./configure \
   --enable-libx264 \
   --enable-libx265 \
   --enable-nonfree && \
-PATH="/build/bin:$PATH" make -j3 && \
+make -j4 && \
 make install && \
 hash -r

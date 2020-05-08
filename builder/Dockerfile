@@ -35,6 +35,8 @@ RUN mkdir -p src tmp bin lib
 
 WORKDIR /build/lib
 
+### libass
+
 RUN wget https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-1.0.9.tar.xz \
   && tar xf fribidi-1.0.9.tar.xz \
   && cd fribidi-1.0.9 \
@@ -59,6 +61,8 @@ RUN wget https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0
   && make install \
   && rm -rf /build/lib/libass-0.14.0 /build/lib/libass-0.14.0.tar.xz
 
+### fdk-aac
+
 RUN wget https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.0.1.tar.gz \
   && tar xf fdk-aac-2.0.1.tar.gz \
   && cd fdk-aac-2.0.1 \
@@ -68,6 +72,8 @@ RUN wget https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.
   && make install \
   && rm -rf /build/lib/fdk-aac-2.0.1 /build/lib/fdk-aac-2.0.1.tar.gz
 
+### x265
+
 RUN wget https://bitbucket.org/multicoreware/x265/downloads/x265_3.3.tar.gz \
   && tar xf x265_3.3.tar.gz \
   && cd x265_3.3/build/linux \
@@ -75,6 +81,42 @@ RUN wget https://bitbucket.org/multicoreware/x265/downloads/x265_3.3.tar.gz \
   && make -j4 all \
   && make install \
   && rm -rf /build/lib/x265_3.3 /build/lib/x265_3.3.tar.gz
+
+### gnutls
+
+RUN wget https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz \
+  && tar xf gmp-6.2.0.tar.xz \
+  && cd gmp-6.2.0 \
+  && ./configure --prefix=/usr --enable-static \
+  && make -j4 all \
+  && make check \
+  && make install \
+  && rm -rf /build/lib/gmp-6.2.0 /build/lib/gmp-6.2.0.tar.xz
+
+RUN wget https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz \
+  && tar xf nettle-3.6.tar.gz \
+  && cd nettle-3.6 \
+  && ./.bootstrap \
+  && ./configure --prefix=/usr --enable-static \
+  && make -j4 all \
+  && make install \
+  && rm -rf /build/lib/nettle-3.6 /build/lib/nettle-3.6.tar.gz
+
+# libdane: DNSSEC/DANE?
+# p11: hardware related dependency?
+RUN wget https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.13.tar.xz \
+  && tar xf gnutls-3.6.13.tar.xz \
+  && cd gnutls-3.6.13 \
+  && ./configure \
+    --prefix=/usr \
+    --enable-static \
+    --disable-libdane \
+    --with-included-libtasn1 \
+    --with-included-unistring \
+    --without-p11-kit \
+  && make -j4 all \
+  && make install \
+  && rm -rf /build/lib/gnutls-3.6.13 /build/lib/gnutls-3.6.13.tar.xz
 
 VOLUME /build/bin
 
