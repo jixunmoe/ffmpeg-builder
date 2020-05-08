@@ -37,7 +37,7 @@ WORKDIR /build/lib
 
 ### libass
 
-RUN wget https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-1.0.9.tar.xz \
+RUN wget -q https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-1.0.9.tar.xz \
   && tar xf fribidi-1.0.9.tar.xz \
   && cd fribidi-1.0.9 \
   && ./configure --prefix=/usr --enable-static \
@@ -45,7 +45,7 @@ RUN wget https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-1.0
   && make install \
   && rm -rf /build/lib/fribidi-1.0.9 /build/lib/fribidi-1.0.9.tar.xz
 
-RUN wget https://github.com/silnrsi/graphite/releases/download/1.3.14/graphite2-1.3.14.tgz \
+RUN wget -q https://github.com/silnrsi/graphite/releases/download/1.3.14/graphite2-1.3.14.tgz \
   && tar xf graphite2-1.3.14.tgz \
   && cd graphite2-1.3.14 \
   && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr . \
@@ -53,7 +53,7 @@ RUN wget https://github.com/silnrsi/graphite/releases/download/1.3.14/graphite2-
   && make install \
   && rm -rf /build/lib/graphite2-1.3.14 /build/lib/graphite2-1.3.14.tgz
 
-RUN wget https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz \
+RUN wget -q https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz \
   && tar xf libass-0.14.0.tar.xz \
   && cd libass-0.14.0 \
   && ./configure --prefix=/usr --enable-static \
@@ -63,7 +63,7 @@ RUN wget https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0
 
 ### fdk-aac
 
-RUN wget https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.0.1.tar.gz \
+RUN wget -q https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.0.1.tar.gz \
   && tar xf fdk-aac-2.0.1.tar.gz \
   && cd fdk-aac-2.0.1 \
   && autoreconf -fiv \
@@ -74,7 +74,7 @@ RUN wget https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac-2.
 
 ### x265
 
-RUN wget https://bitbucket.org/multicoreware/x265/downloads/x265_3.3.tar.gz \
+RUN wget -q https://bitbucket.org/multicoreware/x265/downloads/x265_3.3.tar.gz \
   && tar xf x265_3.3.tar.gz \
   && cd x265_3.3/build/linux \
   && cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_SHARED=off ../../source \
@@ -84,7 +84,7 @@ RUN wget https://bitbucket.org/multicoreware/x265/downloads/x265_3.3.tar.gz \
 
 ### gnutls
 
-RUN wget https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz \
+RUN wget -q https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz \
   && tar xf gmp-6.2.0.tar.xz \
   && cd gmp-6.2.0 \
   && ./configure --prefix=/usr --enable-static \
@@ -93,7 +93,7 @@ RUN wget https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz \
   && make install \
   && rm -rf /build/lib/gmp-6.2.0 /build/lib/gmp-6.2.0.tar.xz
 
-RUN wget https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz \
+RUN wget -q https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz \
   && tar xf nettle-3.6.tar.gz \
   && cd nettle-3.6 \
   && ./.bootstrap \
@@ -104,7 +104,7 @@ RUN wget https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz \
 
 # libdane: DNSSEC/DANE?
 # p11: hardware related dependency?
-RUN wget https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.13.tar.xz \
+RUN wget -q https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.13.tar.xz \
   && tar xf gnutls-3.6.13.tar.xz \
   && cd gnutls-3.6.13 \
   && ./configure \
