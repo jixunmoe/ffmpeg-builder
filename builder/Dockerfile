@@ -10,21 +10,22 @@ RUN apt-get update -qq && apt-get -y install \
   build-essential \
   cmake \
   git-core \
+  libfontconfig1-dev \
   libfreetype6-dev \
+  libmp3lame-dev \
+  libnuma-dev \
+  libopus-dev \
   libtool \
   libvorbis-dev \
+  libvpx-dev \
+  libx264-dev \
+  nasm \
   pkg-config \
+  python3 \
   texinfo \
   wget \
-  zlib1g-dev \
-  nasm \
   yasm \
-  libx264-dev \
-  libnuma-dev \
-  libvpx-dev \
-  libmp3lame-dev \
-  libopus-dev \
-  libfontconfig1-dev \
+  zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /build
