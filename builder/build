@@ -10,7 +10,7 @@ if [ ! -z "$1" ]; then
 fi
 
 wget -q "https://ffmpeg.org/releases/ffmpeg-${COMPILE_VER}.tar.xz"
-tar xf ffmpeg-snapshot.tar.bz2
+tar xf "ffmpeg-${COMPILE_VER}.tar.xz"
 
 cd ffmpeg
 
