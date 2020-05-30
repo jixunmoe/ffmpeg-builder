@@ -12,7 +12,7 @@ fi
 wget -q "https://ffmpeg.org/releases/ffmpeg-${COMPILE_VER}.tar.xz"
 tar xf "ffmpeg-${COMPILE_VER}.tar.xz"
 
-cd ffmpeg
+cd "ffmpeg-${COMPILE_VER}"
 
 ./configure \
   --prefix="/usr" \
