@@ -41,7 +41,7 @@ RUN wget -q https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-
   && tar xf fribidi-1.0.9.tar.xz \
   && cd fribidi-1.0.9 \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make install \
   && rm -rf /build/lib/fribidi-1.0.9 /build/lib/fribidi-1.0.9.tar.xz
 
@@ -49,7 +49,7 @@ RUN wget -q https://github.com/silnrsi/graphite/releases/download/1.3.14/graphit
   && tar xf graphite2-1.3.14.tgz \
   && cd graphite2-1.3.14 \
   && cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr . \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make install \
   && rm -rf /build/lib/graphite2-1.3.14 /build/lib/graphite2-1.3.14.tgz
 
@@ -57,7 +57,7 @@ RUN wget -q https://github.com/libass/libass/releases/download/0.14.0/libass-0.1
   && tar xf libass-0.14.0.tar.xz \
   && cd libass-0.14.0 \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make install \
   && rm -rf /build/lib/libass-0.14.0 /build/lib/libass-0.14.0.tar.xz
 
@@ -68,7 +68,7 @@ RUN wget -q https://github.com/mstorsjo/fdk-aac/archive/v2.0.1.tar.gz -O fdk-aac
   && cd fdk-aac-2.0.1 \
   && autoreconf -fiv \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make install \
   && rm -rf /build/lib/fdk-aac-2.0.1 /build/lib/fdk-aac-2.0.1.tar.gz
 
@@ -78,7 +78,7 @@ RUN wget -q https://bitbucket.org/multicoreware/x265/downloads/x265_3.3.tar.gz \
   && tar xf x265_3.3.tar.gz \
   && cd x265_3.3/build/linux \
   && cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_SHARED=off ../../source \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make install \
   && rm -rf /build/lib/x265_3.3 /build/lib/x265_3.3.tar.gz
 
@@ -88,7 +88,7 @@ RUN wget -q https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz \
   && tar xf gmp-6.2.0.tar.xz \
   && cd gmp-6.2.0 \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make check \
   && make install \
   && rm -rf /build/lib/gmp-6.2.0 /build/lib/gmp-6.2.0.tar.xz
@@ -98,7 +98,7 @@ RUN wget -q https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz \
   && cd nettle-3.6 \
   && ./.bootstrap \
   && ./configure --prefix=/usr --enable-static \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make install \
   && rm -rf /build/lib/nettle-3.6 /build/lib/nettle-3.6.tar.gz
 
@@ -114,9 +114,33 @@ RUN wget -q https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.13.tar.xz \
     --with-included-libtasn1 \
     --with-included-unistring \
     --without-p11-kit \
-  && make -j4 all \
+  && make -j$(nproc) all \
   && make install \
   && rm -rf /build/lib/gnutls-3.6.13 /build/lib/gnutls-3.6.13.tar.xz
+
+### libbluray
+
+RUN git clone --branch v2.9.10 --depth 1 https://gitlab.gnome.org/GNOME/libxml2.git libxml2-2.9.10 \
+  && cd libxml2-2.9.10 \
+  && sh autogen.sh \
+    --prefix=/usr \
+    --enable-static \
+    --without-python \
+    --without-zlib \
+    --without-lzma \
+  && make -j$(nproc) all \
+  && make install
+
+RUN wget -q https://download.videolan.org/pub/videolan/libbluray/1.1.2/libbluray-1.1.2.tar.bz2 \
+  && tar xf libbluray-1.1.2.tar.bz2 \
+  && cd libbluray-1.1.2 \
+  && ./configure \
+    --prefix=/usr \
+    --enable-static \
+    --disable-bdjava-jar \
+  && make -j$(nproc) all \
+  && make install \
+  && rm -rf /build/lib/libbluray-1.1.2 /build/lib/libbluray-1.1.2.tar.bz2
 
 VOLUME /build/bin
 

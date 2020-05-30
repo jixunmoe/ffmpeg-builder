@@ -4,8 +4,13 @@ set -ex
 
 cd /build/src
 
-wget -q https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-tar xjf ffmpeg-snapshot.tar.bz2
+COMPILE_VER=4.2.3
+if [ ! -z "$1" ]; then
+  COMPILE_VER="$1"
+fi
+
+wget -q "https://ffmpeg.org/releases/ffmpeg-${COMPILE_VER}.tar.xz"
+tar xf ffmpeg-snapshot.tar.bz2
 
 cd ffmpeg
 
@@ -28,7 +33,8 @@ cd ffmpeg
   --enable-libvpx \
   --enable-libx264 \
   --enable-libx265 \
+  --enable-libbluray \
   --enable-nonfree && \
-make -j4 && \
+make -j$(nproc) && \
 make install && \
 hash -r
