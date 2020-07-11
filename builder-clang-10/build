@@ -1,0 +1,44 @@
+#!/bin/sh
+
+set -ex
+
+cd /build/src
+
+COMPILE_VER=4.3.1
+if [ ! -z "$1" ]; then
+  COMPILE_VER="$1"
+fi
+
+wget -q "https://ffmpeg.org/releases/ffmpeg-${COMPILE_VER}.tar.xz"
+tar xf "ffmpeg-${COMPILE_VER}.tar.xz"
+
+cd "ffmpeg-${COMPILE_VER}"
+
+./configure \
+  --cc="${CC}" \
+  --objcc="${CC}" \
+  --dep-cc="${CC}" \
+  --ld="${LD}" \
+  --prefix="/usr" \
+  --pkg-config-flags="--static" \
+  --extra-cflags="-static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
+  --extra-ldflags="-static" \
+  --extra-libs="-lpthread -lm" \
+  --bindir="/build/bin" \
+  --enable-static \
+  --enable-gpl \
+  --enable-gnutls \
+  --enable-libass \
+  --enable-libfdk-aac \
+  --enable-libfreetype \
+  --enable-libmp3lame \
+  --enable-libopus \
+  --enable-libvorbis \
+  --enable-libvpx \
+  --enable-libx264 \
+  --enable-libx265 \
+  --enable-libbluray \
+  --enable-nonfree && \
+make -j$(nproc) && \
+make install && \
+hash -r
