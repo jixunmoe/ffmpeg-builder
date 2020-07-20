@@ -7,6 +7,14 @@ cd /build/src
 COMPILE_VER=4.3.1
 if [ ! -z "$1" ]; then
   COMPILE_VER="$1"
+  shift
+fi
+
+# Use it like: "-O2 -ftree-vectorize -march=native"
+EXTRA_CFLAGS="-O2"
+if [ ! -z "$1" ]; then
+  EXTRA_CFLAGS="$1"
+  shift
 fi
 
 wget -q "https://ffmpeg.org/releases/ffmpeg-${COMPILE_VER}.tar.xz"
@@ -20,7 +28,7 @@ cd "ffmpeg-${COMPILE_VER}"
   --dep-cc="${CC}" \
   --prefix="/usr" \
   --pkg-config-flags="--static" \
-  --extra-cflags="-static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
+  --extra-cflags="${EXTRA_CFLAGS} -static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
   --extra-ldflags="-static" \
   --extra-libs="-lpthread -lm" \
   --bindir="/build/bin" \
