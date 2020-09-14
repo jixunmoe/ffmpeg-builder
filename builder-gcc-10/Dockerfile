@@ -185,6 +185,7 @@ RUN wget -q https://download.videolan.org/pub/videolan/libbluray/1.1.2/libbluray
 VOLUME /build/bin
 
 COPY build /usr/local/bin/build
-COPY gcc-10 /usr/local/bin/gcc-10
+COPY gcc-filter.c /tmp/gcc-filter.c
+RUN gcc -Wall -Wextra -s -O2 -o /usr/local/bin/gcc-10 /tmp/gcc-filter.c
 
 ENTRYPOINT [ "/usr/local/bin/build" ]
