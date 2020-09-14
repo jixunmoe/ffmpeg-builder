@@ -22,7 +22,7 @@ tar xf "ffmpeg-${COMPILE_VER}.tar.xz"
 
 cd "ffmpeg-${COMPILE_VER}"
 
-./configure \
+nice -n19 ./configure \
   --cc="${CC}" \
   --objcc="${CC}" \
   --dep-cc="${CC}" \
@@ -45,7 +45,8 @@ cd "ffmpeg-${COMPILE_VER}"
   --enable-libx264 \
   --enable-libx265 \
   --enable-libbluray \
-  --enable-nonfree && \
-make -j$(nproc) && \
-make install && \
-hash -r
+  --enable-nonfree
+
+nice -n19 make -j$(nproc)
+make install
+
