@@ -6,6 +6,7 @@ int main(int argc, char** argv) {
   char** my_argv = (char**)calloc(argc + 1, sizeof(char*));
 
   char* cc = getenv("CC");
+  my_argv[0] = cc;
 
   int i = 1;
   int j = 1;
