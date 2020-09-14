@@ -87,13 +87,13 @@ RUN git clone --branch stable --depth 1 https://code.videolan.org/videolan/x264.
   && make install \
   && rm -rf /build/lib/x264-stable
 
-RUN wget -q https://bitbucket.org/multicoreware/x265/downloads/x265_3.4.tar.gz \
-  && tar xf x265_3.4.tar.gz \
-  && cd x265_3.4/build/linux \
-  && cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_SHARED=off ../../source \
+RUN wget -q https://github.com/videolan/x265/archive/3.4.tar.gz -O x265-3.4.tar.gz \
+  && tar xf x265-3.4.tar.gz \
+  && cd x265-3.4/build/linux \
+  && cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DHIGH_BIT_DEPTH=1 -DENABLE_SHARED=off ../../source \
   && make -j$(nproc) all \
   && make install \
-  && rm -rf /build/lib/x265_3.4 /build/lib/x265_3.4.tar.gz
+  && rm -rf /build/lib/x265-3.4 /build/lib/x265-3.4.tar.gz
 
 ### libvorbis
 
@@ -124,7 +124,6 @@ RUN wget -q https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz \
   && cd gmp-6.2.0 \
   && ./configure --prefix=/usr --enable-static \
   && make -j$(nproc) all \
-  && make check \
   && make install \
   && rm -rf /build/lib/gmp-6.2.0 /build/lib/gmp-6.2.0.tar.xz
 
