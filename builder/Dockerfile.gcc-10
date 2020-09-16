@@ -1,9 +1,5 @@
 # Ubuntu 20.04
-FROM ubuntu:focal-20200703
-
-RUN mkdir -p /build && \
-  cd /build && \
-  mkdir -p src deps tmp bin lib
+FROM ubuntu:focal-20200729
 
 # Update packages
 RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive \
@@ -35,6 +31,10 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive \
 ENV CC=gcc-10 \
     CXX=g++-10 \
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/lib/pkgconfig
+
+RUN mkdir -p /build && \
+  cd /build && \
+  mkdir -p src deps tmp bin lib
 
 COPY local-bin /usr/local/bin
 
