@@ -8,9 +8,10 @@ make() {
 renice -n 19 -p $$
 
 for dep in /build/deps/*; do
+  echo making "$dep"
   cd /build/lib
   . "$dep"
-fi
+done
 
 cd /
 rm -rf /build/lib/* /build/deps/*
