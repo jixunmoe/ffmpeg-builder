@@ -42,22 +42,22 @@ WORKDIR /build/lib
 
 ################################################################################
 
-COPY deps/libass /build/src/deps/
+COPY deps/libass /build/deps/
 RUN make-deps
 
-COPY deps/fdk-aac /build/src/deps/
+COPY deps/fdk-aac /build/deps/
 RUN make-deps
 
-COPY deps/x264_x265 /build/src/deps/
+COPY deps/x264_x265 /build/deps/
 RUN make-deps
 
-COPY deps/libvorbis /build/src/deps/
+COPY deps/libvorbis /build/deps/
 RUN make-deps
 
-COPY deps/gnutls /build/src/deps/
+COPY deps/gnutls /build/deps/
 RUN make-deps
 
-COPY deps/libbluray /build/src/deps/
+COPY deps/libbluray /build/deps/
 RUN make-deps
 
 ################################################################################
