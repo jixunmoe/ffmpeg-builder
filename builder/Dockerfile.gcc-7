@@ -11,8 +11,8 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive \
     autoconf \
     automake \
     cmake \
-    gcc-10 \
-    g++-10 \
+    gcc \
+    g++ \
     git-core \
     libc6-dev \
     libfontconfig1-dev \
@@ -32,8 +32,8 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
-ENV CC=gcc-10 \
-    CXX=g++-10 \
+ENV CC=gcc \
+    CXX=g++ \
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/lib/pkgconfig
 
 COPY local-bin /usr/local/bin
