@@ -60,6 +60,9 @@ RUN make-deps
 COPY deps/libbluray /build/deps/
 RUN make-deps
 
+COPY deps/libsdl2 /build/deps/
+RUN make-deps
+
 ################################################################################
 
 COPY gcc-filter /tmp/gcc-filter

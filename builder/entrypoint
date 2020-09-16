@@ -45,6 +45,7 @@ cd "ffmpeg-${COMPILE_VER}"
   --enable-libx264 \
   --enable-libx265 \
   --enable-libbluray \
+  --enable-ffplay \
   --enable-nonfree
 
 make -j$(nproc)
