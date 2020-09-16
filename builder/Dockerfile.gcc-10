@@ -37,7 +37,6 @@ ENV CC=gcc-10 \
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/lib/pkgconfig
 
 COPY src /build/src
-COPY deps /build/src
 COPY bin /usr/local/bin
 
 WORKDIR /build/lib
