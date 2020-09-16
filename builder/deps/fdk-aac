@@ -1,0 +1,15 @@
+#!/bin/sh -ex
+
+################################################################################
+
+FDK_AAC_VER=2.0.1
+
+################################################################################
+
+wget -qO - https://github.com/mstorsjo/fdk-aac/archive/v${FDK_AAC_VER}.tar.gz | tar zx
+cd fdk-aac-${FDK_AAC_VER}
+autoreconf -fiv
+./configure --prefix=/usr --enable-static
+make all
+make install
+cd ..

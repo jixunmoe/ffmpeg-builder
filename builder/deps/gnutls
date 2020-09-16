@@ -1,0 +1,42 @@
+#!/bin/sh
+
+################################################################################
+
+GMP_VER=6.2.0
+NETTLE_VER=3.6
+
+GNUTLS_MAJOR=3.6
+GNUTLS_MINOR=15
+
+################################################################################
+
+wget -qO - "https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz" | tar Jx
+cd "gmp-6.2.0"
+./configure --prefix=/usr --enable-static
+make all
+make install
+cd ..
+
+wget -qO - "https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz" | tar zx
+cd "nettle-3.6"
+./.bootstrap
+./configure --prefix=/usr --enable-static
+make all
+make install
+cd ..
+
+# libdane: DNSSEC/DANE?
+# p11: hardware related dependency?
+GNUTLS_FULL_VER="${GNUTLS_MAJOR}.${GNUTLS_MINOR}"
+wget -qO - "https://www.gnupg.org/ftp/gcrypt/gnutls/v${GNUTLS_MAJOR}/gnutls-${GNUTLS_FULL_VER}.tar.xz" | tar Jx
+cd "gnutls-${GNUTLS_FULL_VER}"
+./configure \
+  --prefix=/usr \
+  --enable-static \
+  --disable-libdane \
+  --with-included-libtasn1 \
+  --with-included-unistring \
+  --without-p11-kit
+make all
+make install
+cd ..
