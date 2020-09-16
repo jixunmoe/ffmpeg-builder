@@ -19,7 +19,7 @@ cmake -G "Unix Makefiles" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DHIGH_BIT_DEPTH=1 \
     -DENABLE_SHARED=off \
-    ../../source \
+    ../../source
 make all
 make install
 cd ../../..
