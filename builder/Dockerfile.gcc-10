@@ -63,7 +63,7 @@ RUN make-deps
 ################################################################################
 
 COPY gcc-filter /tmp/gcc-filter
-RUN cd /tmp/gcc-filter && sh build && rm -rf .
+RUN cd /tmp/gcc-filter && sh build
 
 ################################################################################
 
