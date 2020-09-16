@@ -7,7 +7,8 @@ make() {
 # Let's be nice
 renice -n 19 -p $$
 
-for dep in /build/deps/*; do
+for dep in /build/deps/*
+do
   echo making "$dep"
   cd /build/lib
   . "$dep"
