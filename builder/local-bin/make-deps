@@ -1,0 +1,16 @@
+#!/bin/sh -ex
+
+make() {
+  /usr/bin/make "-j$(nproc)" "$@"
+}
+
+# Let's be nice
+renice -n 19 -p $$
+
+for dep in /build/deps/*; do
+  cd /build/lib
+  . "$dep"
+fi
+
+cd /
+rm -rf /build/lib/* /build/deps/*

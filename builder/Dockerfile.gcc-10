@@ -36,7 +36,7 @@ ENV CC=gcc-10 \
     CXX=g++-10 \
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/lib/pkgconfig
 
-COPY bin /usr/local/bin
+COPY local-bin /usr/local/bin
 
 WORKDIR /build/lib
 
