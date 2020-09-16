@@ -69,6 +69,6 @@ RUN cd /tmp/gcc-filter && sh build
 
 VOLUME /build/bin
 
-COPY build /entrypoint
+COPY entrypoint /
 
-ENTRYPOINT [ "sh", "/entrypoint" ]
+ENTRYPOINT [ "/entrypoint" ]
