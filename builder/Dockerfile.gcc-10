@@ -1,0 +1,77 @@
+# Ubuntu 20.04
+FROM ubuntu:focal-20200729
+
+# Update packages
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive \
+  apt-get -y install \
+    autoconf \
+    automake \
+    cmake \
+    gcc-10 \
+    g++-10 \
+    git-core \
+    libc6-dev \
+    libfontconfig1-dev \
+    libfreetype6-dev \
+    libmp3lame-dev \
+    libnuma-dev \
+    libopus-dev \
+    libtool \
+    libvpx-dev \
+    make \
+    nasm \
+    pkg-config \
+    python3-minimal \
+    texinfo \
+    wget \
+    yasm \
+    zlib1g-dev \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV CC=gcc-10 \
+    CXX=g++-10 \
+    PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/lib/pkgconfig
+
+RUN mkdir -p /build && \
+  cd /build && \
+  mkdir -p src deps tmp bin lib
+
+COPY local-bin /usr/local/bin
+
+WORKDIR /build/lib
+
+################################################################################
+
+COPY deps/libass /build/deps/
+RUN make-deps
+
+COPY deps/fdk-aac /build/deps/
+RUN make-deps
+
+COPY deps/x264_x265 /build/deps/
+RUN make-deps
+
+COPY deps/libvorbis /build/deps/
+RUN make-deps
+
+COPY deps/gnutls /build/deps/
+RUN make-deps
+
+COPY deps/libbluray /build/deps/
+RUN make-deps
+
+COPY deps/libsdl2 /build/deps/
+RUN make-deps
+
+################################################################################
+
+COPY gcc-filter /tmp/gcc-filter
+RUN cd /tmp/gcc-filter && sh build
+
+################################################################################
+
+VOLUME /build/bin
+
+COPY build-ffmpeg /
+
+ENTRYPOINT [ "/build-ffmpeg" ]

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+################################################################################
+
+LIBXML2_VERSION=2.9.10
+LIBBLURAY_VERSION=1.1.2
+
+################################################################################
+
+wget -qO - "https://github.com/GNOME/libxml2/archive/v${LIBXML2_VERSION}.tar.gz" | tar zx
+cd "libxml2-${LIBXML2_VERSION}"
+sh autogen.sh \
+  --prefix=/usr \
+  --enable-static \
+  --without-python \
+  --without-zlib \
+  --without-lzma
+make all
+make install
+
+wget -qO - "https://download.videolan.org/pub/videolan/libbluray/${LIBBLURAY_VERSION}/libbluray-${LIBBLURAY_VERSION}.tar.bz2" | tar jx
+cd "libbluray-${LIBBLURAY_VERSION}"
+./configure \
+  --prefix=/usr \
+  --enable-static \
+  --disable-bdjava-jar
+make all
+make install
+

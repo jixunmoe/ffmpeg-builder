@@ -1,0 +1,8 @@
+#!/bin/sh
+
+COMPILER="$(command -v "$CC")"
+OUTPUT="/usr/local/bin/$(basename "$COMPILER")"
+
+$COMPILER "-DPATH_TO_CC=\"$COMPILER\"" -Wall -Wextra -s -O2 -o "$OUTPUT" gcc-filter.c
+
+rm -rf "$(realpath .)"

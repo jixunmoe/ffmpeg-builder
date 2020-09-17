@@ -1,0 +1,30 @@
+#!/bin/sh -ex
+
+################################################################################
+
+FRIBIDI_VER=1.0.9
+GRAPHITE_VER=1.3.14
+LIBASS_VER=0.14.0
+
+################################################################################
+
+wget -qO - "https://github.com/fribidi/fribidi/releases/download/v${FRIBIDI_VER}/fribidi-${FRIBIDI_VER}.tar.xz" | tar Jx
+cd "fribidi-${FRIBIDI_VER}"
+./configure --prefix=/usr --enable-static
+make all
+make install
+cd ..
+
+wget -qO - "https://github.com/silnrsi/graphite/releases/download/${GRAPHITE_VER}/graphite2-${GRAPHITE_VER}.tgz" | tar zx
+cd "graphite2-${GRAPHITE_VER}"
+cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr .
+make all
+make install
+cd ..
+
+wget -qO - "https://github.com/libass/libass/releases/download/${LIBASS_VER}/libass-${LIBASS_VER}.tar.xz" | tar Jx
+cd "libass-${LIBASS_VER}"
+./configure --prefix=/usr --enable-static
+make all
+make install
+cd ..
