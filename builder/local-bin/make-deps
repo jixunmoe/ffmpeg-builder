@@ -4,6 +4,10 @@ make() {
   /usr/bin/make "-j$(nproc)" "$@"
 }
 
+cmake() {
+  /usr/bin/cmake -DCMAKE_CXX_FLAGS="$CXXFLAGS " -DCMAKE_C_FLAGS="$CFLAGS " "$@"
+}
+
 # Let's be nice
 renice -n 19 -p $$
 

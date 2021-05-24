@@ -2,23 +2,23 @@
 
 ################################################################################
 
-GMP_VER=6.2.0
+GMP_VER=6.2.1
 NETTLE_VER=3.6
 
-GNUTLS_MAJOR=3.6
-GNUTLS_MINOR=15
+GNUTLS_MAJOR=3.7
+GNUTLS_MINOR=1
 
 ################################################################################
 
-wget -qO - "https://gmplib.org/download/gmp/gmp-6.2.0.tar.xz" | tar Jx
-cd "gmp-6.2.0"
+wget -qO - "https://gmplib.org/download/gmp/gmp-${GMP_VER}.tar.xz" | tar Jx
+cd "gmp-${GMP_VER}"
 ./configure --prefix=/usr --enable-static
 make all
 make install
 cd ..
 
-wget -qO - "https://ftp.gnu.org/gnu/nettle/nettle-3.6.tar.gz" | tar zx
-cd "nettle-3.6"
+wget -qO - "https://ftp.gnu.org/gnu/nettle/nettle-${NETTLE_VER}.tar.gz" | tar zx
+cd "nettle-${NETTLE_VER}"
 ./.bootstrap
 ./configure --prefix=/usr --enable-static
 make all
