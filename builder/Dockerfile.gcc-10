@@ -42,8 +42,9 @@ WORKDIR /build/lib
 
 ENV CC=gcc-10 \
     CXX=g++-10 \
-    CFLAGS="-O3 " \
-    CXXFLAGS="-O3 " \
+    CFLAGS="-O3 -march=${BUILD_ARCH}" \
+    CXXFLAGS="-O3 -march=${BUILD_ARCH}" \
+    GCC_BUILD_ARCH="${BUILD_ARCH}" \
     PKG_CONFIG_PATH=/usr/lib64/pkgconfig:/usr/lib/pkgconfig
 
 ################################################################################
