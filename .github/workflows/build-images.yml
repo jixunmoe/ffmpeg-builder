@@ -18,9 +18,9 @@ jobs:
         gcc: [10]
         build_arch:
           - "x86-64"
-          - "broadwell"
-          - "silvermont"
-          - "znver2"
+          # - "broadwell"
+          # - "silvermont"
+          # - "znver2"
 
     steps:
       - uses: actions/checkout@v2
@@ -33,4 +33,4 @@ jobs:
           image-tag: "${{ matrix.build_arch }}"
           build-context: builder
           dockerfile: "builder/Dockerfile.gcc-${{ matrix.gcc }}"
-          custom-args: "--build-arg 'BUILD_ARCH=${{ matrix.build_arch }}'"
+          custom-args: "--build-arg BUILD_ARCH=${{ matrix.build_arch }}"
