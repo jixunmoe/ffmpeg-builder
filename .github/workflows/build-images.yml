@@ -34,7 +34,7 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           image-name: "builder"
-          tag-name: "gcc-${{ matrix.gcc }}-${{ matrix.build_arch }}"
+          image-tag: "gcc-${{ matrix.gcc }}-${{ matrix.build_arch }}"
           build-context: builder
           dockerfile: "builder/Dockerfile.gcc-${{ matrix.gcc }}"
           custom-args: "--build-arg BUILD_ARCH=${{ matrix.build_arch }}"
