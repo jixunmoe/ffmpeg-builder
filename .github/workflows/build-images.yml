@@ -29,4 +29,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           image-name: ffmpeg-builder-gcc-10
           build-context: builder
-          dockerfile: Dockerfile.gcc-10
+          dockerfile: builder/Dockerfile.gcc-10
