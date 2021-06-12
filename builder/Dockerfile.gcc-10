@@ -1,6 +1,8 @@
 # Ubuntu 20.04
 FROM ubuntu:focal-20200729
 
+ARG BUILD_ARCH="x86_64"
+
 # Update packages
 RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive \
   apt-get -y install \
