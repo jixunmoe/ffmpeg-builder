@@ -29,8 +29,7 @@ jobs:
         uses: VaultVulp/gp-docker-action@1.1.8
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-          image-name: "gcc-${{ matrix.gcc }}"
-          image-tag: "${{ matrix.build_arch }}"
+          image-name: "gcc-${{ matrix.gcc }}-${{ matrix.build_arch }}"
           build-context: builder
           dockerfile: "builder/Dockerfile.gcc-${{ matrix.gcc }}"
           custom-args: "--build-arg BUILD_ARCH=${{ matrix.build_arch }}"
