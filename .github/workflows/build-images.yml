@@ -18,9 +18,9 @@ jobs:
         gcc: [10]
         build_arch:
           - "x86-64"
-          # - "broadwell"
-          # - "silvermont"
-          # - "znver2"
+          - "broadwell"
+          - "silvermont"
+          - "znver2"
 
     steps:
       - uses: actions/checkout@v2
