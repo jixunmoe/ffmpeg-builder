@@ -2,17 +2,21 @@
 
 cd /build/src
 
-COMPILE_VER=4.4
+COMPILE_VER=snapshot
 if [ ! -z "$1" ]; then
   COMPILE_VER="$1"
   shift
 fi
 
-# Use it like: "-O2 -ftree-vectorize -march=native"
+# Use it like: "-O2 -ftree-vectorize"
 EXTRA_CFLAGS="-O3"
 if [ ! -z "$1" ]; then
   EXTRA_CFLAGS="$1"
   shift
+fi
+
+if [ "$GCC_BUILD_ARCH" == "" ]; then
+  GCC_BUILD_ARCH="x86-64"
 fi
 
 renice -n 19 -p $$
@@ -27,7 +31,7 @@ cd "ffmpeg-${COMPILE_VER}"
   --dep-cc="${CC}" \
   --prefix="/usr" \
   --pkg-config-flags="--static" \
-  --extra-cflags="${EXTRA_CFLAGS} -static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
+  --extra-cflags="${EXTRA_CFLAGS} -march=${GCC_BUILD_ARCH} -static -Wl,-Bdynamic,-lgcc_s,-Bstatic" \
   --extra-ldflags="-static" \
   --extra-libs="-lpthread -lm" \
   --bindir="/build/bin" \

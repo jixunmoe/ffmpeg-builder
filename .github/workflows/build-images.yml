@@ -1,0 +1,48 @@
+# This is a basic workflow to help you get started with Actions
+
+name: "Build base image"
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        gcc: [10]
+        build_arch:
+          - "x86-64"
+          - "broadwell"
+          - "silvermont"
+          - "znver2"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Setup caching
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: "docker-${{ github.workflow }}-${{ matrix.gcc }}-${{ matrix.build_arch }}"
+          restore-keys: |
+            docker-${{ github.workflow }}-${{ matrix.gcc }}-${{ matrix.build_arch }}
+            docker-${{ github.workflow }}-${{ matrix.gcc }}-
+            docker-${{ github.workflow }}-
+            docker-
+
+      - name: Build and Publish latest Docker image
+        uses: VaultVulp/gp-docker-action@1.1.8
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          image-name: "builder"
+          image-tag: "gcc-${{ matrix.gcc }}-${{ matrix.build_arch }}"
+          build-context: builder
+          dockerfile: "builder/Dockerfile.gcc-${{ matrix.gcc }}"
+          custom-args: "--build-arg BUILD_ARCH=${{ matrix.build_arch }}"

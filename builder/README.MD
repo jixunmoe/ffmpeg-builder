@@ -8,19 +8,12 @@ Instructions taken from: https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 ## Build docker image locally
 
 ```sh
-cd builder
-docker build . --tag jixun/ffmpeg-builder:latest
+docker build . --build-arg BUILD_ARCH=native --tag jixun/ffmpeg-builder:latest
 ```
 
-※ Should be available in [Docker Hub][hub], but is untagged.
-
-[hub]: https://hub.docker.com/r/jixun/ffmpeg-builder
-
-## Build ffmpeg
-
-To build latest snapshot of ffmpeg:
+Running above code should produce a natively optimised copy of ffmpeg dependencies.
+For a generic build, use the following instead:
 
 ```sh
-mkdir -p bin
-docker run --rm -v "$(pwd)/bin:/build/bin" jixun/ffmpeg-builder
+docker build . --tag jixun/ffmpeg-builder:latest
 ```
